@@ -6,7 +6,10 @@ import ToastMessage from "./components/ToastMessage";
 import { Position, positions } from "./types/toast";
 import * as S from "./styles/AppStyle";
 import styled from "styled-components";
-import { ToastContainer } from "./components/ToastMessage/style";
+import {
+  ToastContainer,
+  ClearAllButton,
+} from "./components/ToastMessage/style";
 
 type Toast = {
   id: number;
@@ -40,6 +43,10 @@ function App() {
     setToastMessages((prev) => prev.filter((toast) => toast.id !== id));
   };
 
+  const handleClearAll = (pos: Position) => {
+    setToastMessages((prev) => prev.filter((toast) => toast.position !== pos));
+  };
+
   // position별로 그룹핑
   const groupedToasts = positions.reduce((acc, pos) => {
     acc[pos] = toastMessages.filter((toast) => toast.position === pos);
@@ -71,7 +78,14 @@ function App() {
       </S.ToastInputWrapper>
       {positions.map((pos) =>
         groupedToasts[pos].length > 0 ? (
-          <ToastContainer key={pos} position={pos}>
+          <ToastContainer
+            key={pos}
+            $position={pos}
+            // style={{ position: "relative" }}
+          >
+            <ClearAllButton onClick={() => handleClearAll(pos)}>
+              모두 지우기
+            </ClearAllButton>
             {[...groupedToasts[pos]].reverse().map((toast) => (
               <ToastMessage
                 key={toast.id}

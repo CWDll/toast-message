@@ -36,13 +36,15 @@ const positionStyles = {
   `,
 };
 
-export const ToastContainer = styled.div<{ position: Position }>`
+export const ToastContainer = styled.div<{ $position: Position }>`
   position: fixed;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding-top: 40px;
+  margin-top: 50px;
   z-index: 9999;
-  ${({ position }) => positionStyles[position]}
+  ${({ $position }) => positionStyles[$position]}
 `;
 
 export const ToastBox = styled.div`
@@ -60,7 +62,6 @@ export const ToastBox = styled.div`
   animation: fadeIn 0.3s;
   position: relative;
 
-  // 생성 애니메이션
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -82,7 +83,7 @@ export const CloseButton = styled.button`
   margin-left: 12px;
 `;
 
-export const ProgressBar = styled.div<{ percent: number }>`
+export const ProgressBar = styled.div<{ $percent: number }>`
   position: absolute;
   left: 0;
   bottom: 0;
@@ -96,7 +97,9 @@ export const ProgressBar = styled.div<{ percent: number }>`
     content: "";
     display: block;
     height: 100%;
-    width: ${({ percent }) => percent}%;
+    width: ${({ $percent }) => $percent}%;
+    min-width: ${({ $percent }) =>
+      $percent > 0 && $percent < 2 ? "2px" : "unset"};
     background: #4caf50;
     transition: width 0.1s linear;
     transform-origin: left;
@@ -104,3 +107,24 @@ export const ProgressBar = styled.div<{ percent: number }>`
 `;
 
 export const ToastMessageContainer = styled(ToastContainer)``;
+
+export const ClearAllButton = styled.button`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #444;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.8;
+  transition: background 0.2s;
+  &:hover {
+    background: #e53935;
+    color: #fff;
+    opacity: 1;
+  }
+`;

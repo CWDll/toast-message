@@ -46,7 +46,7 @@ export default function ToastMessage({
     <S.ToastBox>
       {message}
       <S.CloseButton onClick={onClose}>×</S.CloseButton>
-      {delay !== null && <S.ProgressBar percent={percent} />}
+      {delay !== null && <S.ProgressBar $percent={percent} />}
     </S.ToastBox>
   );
 }
