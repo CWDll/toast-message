@@ -18,16 +18,18 @@ type Toast = {
 function App() {
   const [position, setPosition] = useState<Position>("top-right");
   const [delay, setDelay] = useState<number>(3000);
+  const [autoClose, setAutoClose] = useState<boolean>(true);
   const [toastMessages, setToastMessages] = useState<Toast[]>([]);
   const [input, setInput] = useState<string>("Toast Message");
 
   const showToastMessage = () => {
     if (!input.trim()) return;
+    const toastDelay = autoClose ? delay : null;
     const newToast: Toast = {
       id: Date.now(),
       message: input,
       position,
-      delay,
+      delay: toastDelay,
     };
     setToastMessages((prev) => [...prev, newToast]);
     // 토스트 메시지 출력 후 입력 창 초기화
@@ -52,6 +54,8 @@ function App() {
         setPosition={setPosition}
         delay={delay}
         setDelay={setDelay}
+        autoClose={autoClose}
+        setAutoClose={setAutoClose}
       />
       <S.ToastInputWrapper>
         <ToastButton onClick={showToastMessage} />

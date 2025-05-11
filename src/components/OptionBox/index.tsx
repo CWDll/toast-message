@@ -7,6 +7,8 @@ interface OptionBoxProps {
   setPosition: (pos: Position) => void;
   delay: number;
   setDelay: (delay: number) => void;
+  autoClose: boolean;
+  setAutoClose: (v: boolean) => void;
 }
 
 const positions: Position[] = [
@@ -23,6 +25,8 @@ export default function OptionBox({
   setPosition,
   delay,
   setDelay,
+  autoClose,
+  setAutoClose,
 }: OptionBoxProps) {
   return (
     <OptionBoxContainer>
@@ -48,7 +52,16 @@ export default function OptionBox({
           min={0}
           value={delay}
           onChange={(e) => setDelay(Number(e.target.value))}
+          disabled={!autoClose}
         />
+        <label style={{ marginTop: "8px" }}>
+          <input
+            type="checkbox"
+            checked={!autoClose}
+            onChange={() => setAutoClose(!autoClose)}
+          />
+          autoClose 비활성화
+        </label>
       </OptionGroup>
     </OptionBoxContainer>
   );
