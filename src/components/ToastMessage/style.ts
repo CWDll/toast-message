@@ -50,7 +50,7 @@ export const ToastBox = styled.div`
   max-width: 400px;
   background: #222;
   color: #fff;
-  padding: 16px 24px;
+  padding: 16px 24px 20px 24px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   display: flex;
@@ -80,6 +80,27 @@ export const CloseButton = styled.button`
   font-size: 1.2rem;
   cursor: pointer;
   margin-left: 12px;
+`;
+
+export const ProgressBar = styled.div<{ percent: number }>`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  width: 100%;
+  background: #e0e0e0;
+  border-radius: 0 0 8px 8px;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    display: block;
+    height: 100%;
+    width: ${({ percent }) => percent}%;
+    background: #4caf50;
+    transition: width 0.1s linear;
+    transform-origin: left;
+  }
 `;
 
 export const ToastMessageContainer = styled(ToastContainer)``;
