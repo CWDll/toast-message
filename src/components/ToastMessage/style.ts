@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { Position } from "../../types/toast";
+import { ToastStatus } from "./index";
 
 const positionStyles = {
   "top-left": css`
@@ -36,6 +37,34 @@ const positionStyles = {
   `,
 };
 
+// 상태별 색상 정의
+const statusColors = {
+  success: {
+    background: "#e8f5e9",
+    text: "#2e7d32",
+    progress: "#4caf50",
+    icon: "#2e7d32",
+  },
+  warning: {
+    background: "#fff3e0",
+    text: "#ef6c00",
+    progress: "#ff9800",
+    icon: "#ef6c00",
+  },
+  error: {
+    background: "#ffebee",
+    text: "#c62828",
+    progress: "#f44336",
+    icon: "#c62828",
+  },
+  default: {
+    background: "#f5f5f5",
+    text: "#424242",
+    progress: "#757575",
+    icon: "#757575",
+  },
+};
+
 export const ToastContainer = styled.div<{ $position: Position }>`
   position: fixed;
   display: flex;
@@ -47,63 +76,65 @@ export const ToastContainer = styled.div<{ $position: Position }>`
   ${({ $position }) => positionStyles[$position]}
 `;
 
-export const ToastBox = styled.div`
-  min-width: 240px;
-  max-width: 400px;
-  background: #222;
-  color: #fff;
-  padding: 16px 24px 20px 24px;
+export const ToastBox = styled.div<{ $status: ToastStatus }>`
+  position: relative;
+  padding: 12px 24px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: ${({ $status }) => statusColors[$status].text};
+  background-color: ${({ $status }) => statusColors[$status].background};
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  min-width: 200px;
+  max-width: 400px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 1rem;
-  animation: fadeIn 0.3s;
-  position: relative;
+  gap: 12px;
+  transition: all 0.3s ease;
+`;
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+export const IconWrapper = styled.div<{ $status: ToastStatus }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${({ $status }) => statusColors[$status].icon};
+  font-size: 1.2rem;
+  flex-shrink: 0;
+`;
+
+export const MessageText = styled.div`
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.4;
 `;
 
 export const CloseButton = styled.button`
-  background: transparent;
+  background: none;
   border: none;
-  color: #fff;
-  font-size: 1.2rem;
+  color: inherit;
+  font-size: 20px;
   cursor: pointer;
-  margin-left: 12px;
+  padding: 0 0 0 12px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+
+  &:hover {
+    opacity: 1;
+  }
 `;
 
-export const ProgressBar = styled.div<{ $percent: number }>`
+export const ProgressBar = styled.div<{
+  $percent: number;
+  $status: ToastStatus;
+}>`
   position: absolute;
-  left: 0;
   bottom: 0;
-  height: 4px;
-  width: 100%;
-  background: #e0e0e0;
+  left: 0;
+  height: 3px;
+  background-color: ${({ $status }) => statusColors[$status].progress};
+  width: ${({ $percent }) => $percent}%;
+  transition: width 0.1s linear;
   border-radius: 0 0 8px 8px;
-  overflow: hidden;
-
-  &::after {
-    content: "";
-    display: block;
-    height: 100%;
-    width: ${({ $percent }) => $percent}%;
-    min-width: ${({ $percent }) =>
-      $percent > 0 && $percent < 2 ? "2px" : "unset"};
-    background: #4caf50;
-    transition: width 0.1s linear;
-    transform-origin: left;
-  }
 `;
 
 export const ToastMessageContainer = styled(ToastContainer)``;

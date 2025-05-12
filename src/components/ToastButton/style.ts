@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const ToastButtonWrapper = styled.div`
-  position: fixed;
-  left: 32px;
-  bottom: 32px;
-  z-index: 100;
+  width: 100%;
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const Button = styled.button`
