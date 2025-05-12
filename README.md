@@ -65,7 +65,7 @@ src/
 - **React**
 - **styled-components**
 - **react-icons**
-- (기본) TypeScript
+- **TypeScript**
 
 ## 실행 방법
 
