@@ -1,46 +1,80 @@
-# Getting Started with Create React App
+# Toast App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+토스트 메시지(Toast Message) UI 컴포넌트 데모 프로젝트입니다.
+React와 styled-components를 활용하여 다양한 위치, 상태, 자동/수동 닫기, 드롭다운 네비게이션 등 실무에서 자주 쓰이는 UI/UX를 구현했습니다.
 
-## Available Scripts
+## 주요 기능
 
-In the project directory, you can run:
+- **토스트 메시지 출력**
 
-### `npm start`
+  - 입력한 메시지를 다양한 위치(6곳)에 토스트로 표시
+  - 성공/경고/오류/기본 등 상태별 스타일 및 아이콘 지원
+  - 자동 닫기/수동 닫기 선택 가능, 딜레이(ms) 조절 가능
+  - 각 위치별로 "모두 지우기" 버튼 제공
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **헤더 네비게이션**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  - Tridge 스타일의 헤더 및 드롭다운 네비게이션 구현
+  - 메뉴 클릭 시 드롭다운이 자연스럽게 열리고, 외부 클릭 시 닫힘
 
-### `npm test`
+- **옵션 박스**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - 토스트 위치, 자동 닫기, 딜레이 등 옵션을 실시간으로 조정
 
-### `npm run build`
+- **반응형/모던 UI**
+  - styled-components 기반의 모던한 디자인
+  - 글로벌 스타일 및 컴포넌트별 스타일 분리
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 프로젝트 구조
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+src/
+  components/
+    Header/         // 헤더 및 드롭다운 네비게이션
+    OptionBox/      // 토스트 옵션 선택 UI
+    ToastButton/    // 토스트 메시지 출력 버튼
+    ToastMessage/   // 토스트 메시지 및 상태 선택
+  styles/           // 글로벌 및 앱 스타일
+  types/            // 타입 정의
+  App.tsx           // 메인 앱 컴포넌트
+  index.tsx         // 엔트리포인트
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 주요 로직 및 함수 설명
 
-### `npm run eject`
+- **토스트 메시지 관리 (src/App.tsx)**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+  - `showToastMessage`: 입력값을 바탕으로 토스트 메시지 객체를 생성, 상태에 추가
+  - `handleToastClose`: 특정 토스트 메시지 삭제
+  - `handleClearAll`: 위치별 토스트 메시지 일괄 삭제
+  - `groupedToasts`: 위치별로 토스트 메시지 그룹핑
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **토스트 메시지 동작 (src/components/ToastMessage/index.tsx)**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+  - `useEffect`로 자동 닫기 타이머 및 프로그레스바 진행률 관리
+  - 마우스 호버 시 타이머 일시정지/재시작
+  - 상태별 아이콘 및 색상 자동 적용
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **헤더 드롭다운 (src/components/Header/index.tsx)**
+  - `useState`로 드롭다운 오픈 상태 관리
+  - `useEffect`로 외부 클릭 시 드롭다운 자동 닫기
+  - 메뉴 데이터 및 드롭다운 아이템 동적 렌더링
 
-## Learn More
+## 사용 라이브러리
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **React**
+- **styled-components**
+- **react-icons**
+- (기본) TypeScript
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 실행 방법
+
+```bash
+npm install
+npm start
+```
+
+## 기타
+
+- 본 프로젝트는 UI/UX 데모 및 프론트엔드 과제 제출용으로 제작되었습니다.
+- Tridge 홈페이지의 헤더 스타일을 참고하여 네비게이션을 구현하였습니다.
