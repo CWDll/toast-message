@@ -7,7 +7,7 @@ export default function Header() {
   // 메뉴 데이터
   const menuItems = [
     {
-      title: "소개",
+      title: "Tridge",
       dropdownItems: ["회사 소개", "비전", "팀", "연혁"],
     },
     {
@@ -15,7 +15,7 @@ export default function Header() {
       dropdownItems: ["글로벌 거래", "시장 분석", "공급망 관리"],
     },
     {
-      title: "지원하기",
+      title: "지원자",
       dropdownItems: ["이창준", "lchj1999", "frontend-dev"],
     },
   ];
@@ -48,7 +48,7 @@ export default function Header() {
 
   return (
     <S.HeaderContainer>
-      <S.Logo>Tridge</S.Logo>
+      <S.Logo>Toast Message App</S.Logo>
       <S.Nav>
         {menuItems.map((item, index) => (
           <S.NavItem
