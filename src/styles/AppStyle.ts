@@ -23,6 +23,7 @@ export const ToastInput = styled.input`
   font-size: 14px;
   outline: none;
   transition: border-color 0.2s;
+  width: 100%;
 
   &:focus {
     border-color: #666;

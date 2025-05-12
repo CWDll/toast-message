@@ -7,12 +7,13 @@ export const OptionBoxContainer = styled.div`
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   gap: 30px;
   padding: 24px;
   background: #f7f7f7;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  width: 350px;
+  width: 400px;
 `;
 
 export const OptionGroup = styled.div`
@@ -31,5 +32,5 @@ export const DelayInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 1rem;
-  width: 40%;
+  width: 100%;
 `;
