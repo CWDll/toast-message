@@ -1,5 +1,5 @@
 import React from "react";
-import { OptionBoxContainer, OptionGroup, Label, DelayInput } from "./style";
+import * as S from "./style";
 import { Position } from "../../types/toast";
 
 interface OptionBoxProps {
@@ -29,9 +29,9 @@ export default function OptionBox({
   setAutoClose,
 }: OptionBoxProps) {
   return (
-    <OptionBoxContainer>
-      <OptionGroup>
-        <Label>Position</Label>
+    <S.OptionBoxContainer>
+      <S.OptionGroup>
+        <S.Label>Position</S.Label>
         {positions.map((pos) => (
           <label key={pos}>
             <input
@@ -44,10 +44,10 @@ export default function OptionBox({
             {pos}
           </label>
         ))}
-      </OptionGroup>
-      <OptionGroup>
-        <Label>Delay (ms)</Label>
-        <DelayInput
+      </S.OptionGroup>
+      <S.OptionGroup>
+        <S.Label>Delay (ms)</S.Label>
+        <S.DelayInput
           type="number"
           min={0}
           value={delay}
@@ -62,7 +62,7 @@ export default function OptionBox({
           />
           autoClose 비활성화
         </label>
-      </OptionGroup>
-    </OptionBoxContainer>
+      </S.OptionGroup>
+    </S.OptionBoxContainer>
   );
 }

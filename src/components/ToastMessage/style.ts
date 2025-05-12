@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { Position } from "../../types/toast";
+import { ToastStatus } from "./index";
 
 const positionStyles = {
   "top-left": css`
@@ -36,50 +37,174 @@ const positionStyles = {
   `,
 };
 
-export const ToastContainer = styled.div<{ position: Position }>`
+// 상태별 색상 정의
+const statusColors = {
+  success: {
+    background: "#e8f5e9",
+    text: "#2e7d32",
+    progress: "#4caf50",
+    icon: "#2e7d32",
+  },
+  warning: {
+    background: "#fff3e0",
+    text: "#ef6c00",
+    progress: "#ff9800",
+    icon: "#ef6c00",
+  },
+  error: {
+    background: "#ffebee",
+    text: "#c62828",
+    progress: "#f44336",
+    icon: "#c62828",
+  },
+  default: {
+    background: "#f5f5f5",
+    text: "#424242",
+    progress: "#757575",
+    icon: "#757575",
+  },
+};
+
+export const ToastContainer = styled.div<{ $position: Position }>`
   position: fixed;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  padding-top: 40px;
+  margin-top: 50px;
   z-index: 9999;
-  ${({ position }) => positionStyles[position]}
+  ${({ $position }) => positionStyles[$position]}
 `;
 
-export const ToastBox = styled.div`
-  min-width: 240px;
-  max-width: 400px;
-  background: #222;
-  color: #fff;
-  padding: 16px 24px;
+export const ToastBox = styled.div<{ $status: ToastStatus }>`
+  position: relative;
+  padding: 12px 24px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: ${({ $status }) => statusColors[$status].text};
+  background-color: ${({ $status }) => statusColors[$status].background};
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  min-width: 200px;
+  max-width: 400px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  font-size: 1rem;
-  animation: fadeIn 0.3s;
-  position: relative;
+  gap: 12px;
+  transition: all 0.3s ease;
+`;
 
-  // 생성 애니메이션
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+export const IconWrapper = styled.div<{ $status: ToastStatus }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${({ $status }) => statusColors[$status].icon};
+  font-size: 1.2rem;
+  flex-shrink: 0;
+`;
+
+export const MessageText = styled.div`
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.4;
 `;
 
 export const CloseButton = styled.button`
-  background: transparent;
+  background: none;
   border: none;
-  color: #fff;
-  font-size: 1.2rem;
+  color: inherit;
+  font-size: 20px;
   cursor: pointer;
-  margin-left: 12px;
+  padding: 0 0 0 12px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const ProgressBar = styled.div<{
+  $percent: number;
+  $status: ToastStatus;
+}>`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: ${({ $status }) => statusColors[$status].progress};
+  width: ${({ $percent }) => $percent}%;
+  transition: width 0.1s linear;
+  border-radius: 0 0 8px 8px;
 `;
 
 export const ToastMessageContainer = styled(ToastContainer)``;
+
+export const ClearAllButton = styled.button`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #444;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0.8;
+  transition: background 0.2s;
+  &:hover {
+    background: #e53935;
+    color: #fff;
+    opacity: 1;
+  }
+`;
+
+/*
+  StatusSelector 컴포넌트 스타일
+*/
+export const Container = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StatusButton = styled.button<{
+  $isSelected: boolean;
+  $value: string;
+}>`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: ${({ $isSelected }) => ($isSelected ? "#f0f0f0" : "white")};
+  cursor: pointer;
+  transition: all 0.2s;
+  color: ${({ $value }) => {
+    switch ($value) {
+      case "success":
+        return "#4caf50";
+      case "warning":
+        return "#ff9800";
+      case "error":
+        return "#f44336";
+      default:
+        return "#2196f3";
+    }
+  }};
+
+  &:hover {
+    background: #f5f5f5;
+  }
+
+  svg {
+    font-size: 1.1rem;
+  }
+
+  span {
+    font-size: 0.9rem;
+  }
+`;

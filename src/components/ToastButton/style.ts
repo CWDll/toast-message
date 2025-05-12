@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
 export const ToastButtonWrapper = styled.div`
-  position: fixed;
-  left: 32px;
-  bottom: 32px;
-  z-index: 100;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
 `;
 
 export const Button = styled.button`
   padding: 12px 32px;
+  width: 100%;
   background: #222;
   color: #fff;
   border: none;
@@ -16,7 +16,7 @@ export const Button = styled.button`
   font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 24px;
+  margin-top: 8px;
   transition: background 0.2s;
   &:hover {
     background: #444;
