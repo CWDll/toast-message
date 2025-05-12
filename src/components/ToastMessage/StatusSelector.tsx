@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import * as S from "./style";
 import { ToastStatus } from "./index";
 import {
   FaCheckCircle,
@@ -30,49 +30,19 @@ const StatusSelector: React.FC<StatusSelectorProps> = ({
   onStatusChange,
 }) => {
   return (
-    <Container>
+    <S.Container>
       {statusOptions.map(({ value, label, icon: Icon }) => (
-        <StatusButton
+        <S.StatusButton
           key={value}
           $isSelected={selectedStatus === value}
+          $value={value}
           onClick={() => onStatusChange(value)}
         >
           <span>{label}</span>
-        </StatusButton>
+        </S.StatusButton>
       ))}
-    </Container>
+    </S.Container>
   );
 };
-
-const Container = styled.div`
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StatusButton = styled.button<{ $isSelected: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: ${({ $isSelected }) => ($isSelected ? "#f0f0f0" : "white")};
-  cursor: pointer;
-  transition: all 0 2s;
-
-  &:hover {
-    background: #f5f5f5;
-  }
-
-  svg {
-    font-size: 1.1rem;
-  }
-
-  span {
-    font-size: 0.9rem;
-  }
-`;
 
 export default StatusSelector;

@@ -159,3 +159,52 @@ export const ClearAllButton = styled.button`
     opacity: 1;
   }
 `;
+
+/*
+  StatusSelector 컴포넌트 스타일
+*/
+export const Container = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const StatusButton = styled.button<{
+  $isSelected: boolean;
+  $value: string;
+}>`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: ${({ $isSelected }) => ($isSelected ? "#f0f0f0" : "white")};
+  cursor: pointer;
+  transition: all 0.2s;
+  color: ${({ $value }) => {
+    switch ($value) {
+      case "success":
+        return "#4caf50";
+      case "warning":
+        return "#ff9800";
+      case "error":
+        return "#f44336";
+      default:
+        return "#2196f3";
+    }
+  }};
+
+  &:hover {
+    background: #f5f5f5;
+  }
+
+  svg {
+    font-size: 1.1rem;
+  }
+
+  span {
+    font-size: 0.9rem;
+  }
+`;
